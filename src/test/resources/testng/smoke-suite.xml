@@ -1,0 +1,43 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!--
+    Smoke Suite — fast pre-deploy sanity check.
+    Only tests that the stack is alive and auth + public reads work.
+    Run with: mvn verify -Dsuite=smoke
+-->
+<suite name="Nile E2E Smoke Suite" verbose="2">
+
+    <test name="Auth Smoke">
+        <classes>
+            <class name="com.saswath.nile.e2e.auth.AuthIT">
+                <methods>
+                    <include name="register_validPayload_returns200WithToken"/>
+                    <include name="login_validCredentials_returns200WithToken"/>
+                    <include name="login_wrongPassword_returns401"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Product Smoke">
+        <classes>
+            <class name="com.saswath.nile.e2e.product.ProductIT">
+                <methods>
+                    <include name="getAllProducts_public_returns200"/>
+                    <include name="getProductById_notFound_returns404"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Security Smoke">
+        <classes>
+            <class name="com.saswath.nile.e2e.security.SecurityIT">
+                <methods>
+                    <include name="getProducts_noToken_returns200"/>
+                    <include name="user_cannotAccess_adminGetUsers"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

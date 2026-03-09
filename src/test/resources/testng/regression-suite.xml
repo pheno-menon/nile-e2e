@@ -1,0 +1,48 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!--
+    Regression Suite — full test run, all classes, sequential.
+    Run with: mvn verify  (or: mvn verify -Dsuite=regression)
+-->
+<suite name="Nile E2E Regression Suite" verbose="2">
+
+    <listeners>
+        <listener class-name="org.testng.reporters.XMLReporter"/>
+    </listeners>
+
+    <test name="Auth Tests">
+        <classes>
+            <class name="com.saswath.nile.e2e.auth.AuthIT"/>
+        </classes>
+    </test>
+
+    <test name="Product Tests">
+        <classes>
+            <class name="com.saswath.nile.e2e.product.ProductIT"/>
+        </classes>
+    </test>
+
+    <test name="Cart Tests">
+        <classes>
+            <class name="com.saswath.nile.e2e.cart.CartIT"/>
+        </classes>
+    </test>
+
+    <test name="Order Tests">
+        <classes>
+            <class name="com.saswath.nile.e2e.order.OrderIT"/>
+        </classes>
+    </test>
+
+    <test name="Admin Tests">
+        <classes>
+            <class name="com.saswath.nile.e2e.admin.AdminIT"/>
+        </classes>
+    </test>
+
+    <test name="Security Tests">
+        <classes>
+            <class name="com.saswath.nile.e2e.security.SecurityIT"/>
+        </classes>
+    </test>
+
+</suite>

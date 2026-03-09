@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!--
+    Security Suite — JWT and RBAC boundary tests only.
+    Run after any change to SecurityConfig or JwtUtil.
+    Run with: mvn verify -Dsuite=security
+-->
+<suite name="Nile E2E Security Suite" verbose="2">
+
+    <test name="Security Boundary Tests">
+        <classes>
+            <class name="com.saswath.nile.e2e.security.SecurityIT"/>
+        </classes>
+    </test>
+
+</suite>
