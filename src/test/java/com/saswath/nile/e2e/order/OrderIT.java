@@ -32,14 +32,13 @@ public class OrderIT extends BaseIT {
     @BeforeClass
     public void setUpUsersAndProduct() {
         String userEmail  = "order.user."  + UUID.randomUUID() + "@nile.com";
-        String adminEmail = "order.admin." + UUID.randomUUID() + "@nile.com";
 
         Response userResponse = AuthHelper.register("Order User", userEmail, "ValidPass1!");
         userResponse.then().statusCode(200);
         userToken = "Bearer " + userResponse.jsonPath().getString("token");
         userId    = AuthHelper.extractUserId(userResponse);
 
-        adminToken = AuthHelper.registerAndGetToken("Order Admin", adminEmail, "ValidPass1!");
+        adminToken = AuthHelper.loginAndGetToken(prop("test.admin.email"), prop("test.admin.password"));
 
         // Seed a product with enough stock
         Response productResponse = given()

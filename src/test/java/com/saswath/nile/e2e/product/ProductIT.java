@@ -27,11 +27,9 @@ public class ProductIT extends BaseIT {
 
     @BeforeClass
     public void setUpUsers() {
-        String userEmail  = "prod.user."  + UUID.randomUUID() + "@nile.com";
-        String adminEmail = "prod.admin." + UUID.randomUUID() + "@nile.com";
-
-        userToken  = AuthHelper.registerAndGetToken("Prod User",  userEmail,  "ValidPass1!");
-        adminToken = AuthHelper.registerAndGetToken("Prod Admin", adminEmail, "ValidPass1!");
+        String userEmail = "prod.user." + UUID.randomUUID() + "@nile.com";
+        userToken  = AuthHelper.registerAndGetToken("Prod User", userEmail, "ValidPass1!");
+        adminToken = AuthHelper.loginAndGetToken(prop("test.admin.email"), prop("test.admin.password"));
     }
 
     @Test(description = "GET /api/products returns 200 without any token")
@@ -78,9 +76,7 @@ public class ProductIT extends BaseIT {
         createdProductId = response.jsonPath().getLong("id");
     }
 
-    @Test(
-            description = "POST /api/admin/products returns 403 when called by regular user"
-    )
+    @Test(description = "POST /api/admin/products returns 403 when called by regular user")
     public void createProduct_asUser_returns403() {
         given()
                 .spec(RestAssured.requestSpecification)
@@ -92,9 +88,7 @@ public class ProductIT extends BaseIT {
                 .statusCode(403);
     }
 
-    @Test(
-            description = "POST /api/admin/products returns 403 without token"
-    )
+    @Test(description = "POST /api/admin/products returns 403 without token")
     public void createProduct_noToken_returns403() {
         given()
                 .spec(RestAssured.requestSpecification)
@@ -194,7 +188,6 @@ public class ProductIT extends BaseIT {
                 .then()
                 .statusCode(204);
 
-        // Verify it is truly gone
         given()
                 .spec(RestAssured.requestSpecification)
                 .when()

@@ -34,14 +34,13 @@ public class CartIT extends BaseIT {
     @BeforeClass
     public void setUpUsersAndProduct() {
         String userEmail  = "cart.user."  + UUID.randomUUID() + "@nile.com";
-        String adminEmail = "cart.admin." + UUID.randomUUID() + "@nile.com";
 
         Response userResponse = AuthHelper.register("Cart User", userEmail, "ValidPass1!");
         userResponse.then().statusCode(200);
         userToken = "Bearer " + userResponse.jsonPath().getString("token");
         userId    = AuthHelper.extractUserId(userResponse);
 
-        adminToken = AuthHelper.registerAndGetToken("Cart Admin", adminEmail, "ValidPass1!");
+        adminToken = AuthHelper.loginAndGetToken(prop("test.admin.email"), prop("test.admin.password"));
 
         // Seed a product via the admin endpoint for cart tests to use
         Response productResponse = given()

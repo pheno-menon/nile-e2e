@@ -28,11 +28,10 @@ public class AdminIT extends BaseIT {
 
     @BeforeClass
     public void setUpUsersAndProduct() {
-        String adminEmail = "admin.admin." + UUID.randomUUID() + "@nile.com";
         String userEmail = "admin.user." + UUID.randomUUID() + "@nile.com";
         String targetEmail = "admin.target." + UUID.randomUUID() + "@nile.com";
 
-        adminToken = AuthHelper.registerAndGetToken("Admin User", adminEmail, "ValidPass1!");
+        adminToken = AuthHelper.loginAndGetToken(prop("test.admin.email"), prop("test.admin.password"));
         userToken = AuthHelper.registerAndGetToken("Regular User", userEmail, "ValidPass1!");
 
         // Throwaway user to be deleted

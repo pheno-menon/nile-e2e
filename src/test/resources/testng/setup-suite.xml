@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!--
+    Setup Suite - registers admin users only.
+    Run by CI before the MySQL promotion step.
+    Not intended for local use.
+-->
+<suite name="Nile E2E Setup Suite" verbose="2">
+
+    <test name="Admin User Registration">
+        <classes>
+            <class name="com.saswath.nile.e2e.setup.SuiteSetupIT"/>
+        </classes>
+    </test>
+
+</suite>
