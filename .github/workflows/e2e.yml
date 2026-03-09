@@ -31,6 +31,18 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-e2e-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-e2e-
+
+      - name: Build Nile JAR
+        working-directory: nile-app
+        run: mvn clean package -DskipTests
+
       - name: Start Nile docker stack
         working-directory: nile-app
         env:
@@ -53,14 +65,6 @@ jobs:
           echo "Stack failed to become healthy in time"
           docker compose -f nile-app/docker-compose.yml logs
           exit 1
-
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-e2e-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-e2e-
 
       - name: Run E2E tests
         run: |
