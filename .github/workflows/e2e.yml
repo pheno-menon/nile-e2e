@@ -29,7 +29,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '17'
-          distibution: 'temurin'
+          distribution: 'temurin'
 
       - name: Start Nile docker stack
         working-directory: nile-app
