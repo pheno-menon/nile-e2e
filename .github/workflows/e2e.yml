@@ -46,7 +46,7 @@ jobs:
       - name: Start Nile docker stack
         working-directory: nile-app
         run: |
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          export JWT_SECRET="${{ secrets.JWT_SECRET }}"
           docker compose up -d --build
           echo "Docker stack started"
 
