@@ -45,9 +45,8 @@ jobs:
 
       - name: Start Nile docker stack
         working-directory: nile-app
-        env:
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
         run: |
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
           docker compose up -d --build
           echo "Docker stack started"
 
@@ -75,7 +74,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: testng-report
-          path: target/surefire-reports/
+          path: target/failsafe-reports/
 
       - name: Teardown docker stack
         if: always()
